@@ -1,0 +1,149 @@
+{
+  "elements": {
+    "4": {
+      "title": "Поход в горы",
+      "subtitle": "Покори вершину",
+      "description": "Покорите самую высокую гору в регионе",
+      "taskMap": "1",
+      "patternTasks": [
+        {
+          "script": "climb the highest mountain"
+        }
+      ],
+      "nextPatternQuests": [
+        5
+      ]
+    },
+    "5": {
+      "title": "Исследование пещеры",
+      "subtitle": "Откройте тайны подземного мира",
+      "description": "Исследуйте пещеру и найдите ее сокровища",
+      "taskMap": "1",
+      "patternTasks": [
+        {
+          "script": "explore the cave"
+        },
+        {
+          "script": "find the cave's treasures"
+        }
+      ],
+      "nextPatternQuests": [
+        6
+      ]
+    },
+    "6": {
+      "title": "Охота на дракона",
+      "subtitle": "Сразись с легендарным существом",
+      "description": "Найдите и победите дракона",
+      "taskMap": "1",
+      "patternTasks": [
+        {
+          "script": "hunt down the dragon"
+        }
+      ],
+      "nextPatternQuests": [
+        7
+      ]
+    },
+    "7": {
+      "title": "Поиск потерянного сокровища",
+      "subtitle": "Раскройте загадку и найдите сокровище",
+      "description": "Разгадайте загадку и найдите потерянное сокровище",
+      "taskMap": "1",
+      "patternTasks": [
+        {
+          "script": "solve the riddle"
+        },
+        {
+          "script": "find the lost treasure"
+        }
+      ],
+      "nextPatternQuests": [
+        8
+      ]
+    },
+    "8": {
+      "title": "Подводное приключение",
+      "subtitle": "Исследуйте морские глубины",
+      "description": "Погрузитесь под воду и исследуйте подводный мир",
+      "taskMap": "1",
+      "patternTasks": [
+        {
+          "script": "dive into the water"
+        },
+        {
+          "script": "explore the underwater world"
+        }
+      ],
+      "nextPatternQuests": [
+        9
+      ]
+    },
+    "9": {
+      "title": "Тайна заброшенного замка",
+      "subtitle": "Раскройте тайну замка",
+      "description": "Исследуйте заброшенный замок и раскройте его тайны",
+      "taskMap": "1",
+      "patternTasks": [
+        {
+          "script": "explore the abandoned castle"
+        },
+        {
+          "script": "uncover the castle's mysteries"
+        }
+      ],
+      "nextPatternQuests": [
+        10
+      ]
+    },
+    "10": {
+      "title": "Сражение с великим злом",
+      "subtitle": "Остановите великое зло",
+      "description": "Сразитесь с великим злом и спасите мир",
+      "taskMap": "1",
+      "patternTasks": [
+        {
+          "script": "battle the great evil"
+        }
+      ],
+      "nextPatternQuests": [
+        11
+      ]
+    },
+    "11": {
+      "title": "Путешествие во времени",
+      "subtitle": "Измените историю",
+      "description": "Путешествуйте во времени и измените ход событий",
+      "taskMap": "1",
+      "patternTasks": [
+        {
+          "script": "travel through time"
+        },
+        {
+          "script": "alter the course of history"
+        }
+      ],
+      "nextPatternQuests": [
+        12
+      ]
+    },
+    "12": {
+      "title": "Восстановление древнего артефакта",
+      "subtitle": "Верните силу древности",
+      "description": "Найдите и восстановите древний артефакт",
+      "taskMap": "1",
+      "patternTasks": [
+        {
+          "script": "find the ancient artifact"
+        },
+        {
+          "script": "restore the power of the artifact"
+        }
+      ],
+      "nextPatternQuests": [
+        13
+      ]
+    }
+  }
+}
+

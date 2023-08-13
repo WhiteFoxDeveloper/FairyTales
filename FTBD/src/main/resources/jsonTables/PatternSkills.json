@@ -1,0 +1,52 @@
+{
+  "elements": [
+    {
+      "name": "Сила",
+      "maxLevel": 5
+    },
+    {
+      "name": "Ловкость",
+      "maxLevel": 15
+    },
+    {
+      "name": "Интеллект",
+      "maxLevel": 10
+    },
+    {
+      "name": "Выносливость",
+      "maxLevel": 20
+    },
+    {
+      "name": "Магия",
+      "maxLevel": 10
+    },
+    {
+      "name": "Удача",
+      "maxLevel": 10
+    },
+    {
+      "name": "Защита",
+      "maxLevel": 15
+    },
+    {
+      "name": "Регенерация",
+      "maxLevel": 10
+    },
+    {
+      "name": "Атака",
+      "maxLevel": 20
+    },
+    {
+      "name": "Критический удар",
+      "maxLevel": 15
+    },
+    {
+      "name": "Скорость",
+      "maxLevel": 10
+    },
+    {
+      "name": "Меткость",
+      "maxLevel": 15
+    }
+  ]
+}
