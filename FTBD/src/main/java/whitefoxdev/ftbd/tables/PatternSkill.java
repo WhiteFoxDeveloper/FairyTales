@@ -2,16 +2,17 @@ package whitefoxdev.ftbd.tables;
 
 
 import whitefoxdev.ftbd.abstracts.ObjectToString;
+import whitefoxdev.ftbd.tables.Player.Role;
+import whitefoxdev.ftbd.tables.Player.Skill;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "patternSkills")
 public class PatternSkill extends ObjectToString {
-    /**
-     * =================================================================================================================
-     * FIELDS
-     */
+    //==================================================================================================================
+    //FIELDS
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,10 +22,8 @@ public class PatternSkill extends ObjectToString {
 
     private int maxLevel;
 
-    /**
-     * =================================================================================================================
-     * CONSTRUCTORS
-     */
+    //==================================================================================================================
+    //CONSTRUCTORS
     private PatternSkill() {
     }
 
@@ -34,10 +33,8 @@ public class PatternSkill extends ObjectToString {
         this.maxLevel = maxLevel;
     }
 
-    /**
-     * =================================================================================================================
-     * GETTERS_AND_SETTERS
-     */
+    //==================================================================================================================
+    //GETTERS_AND_SETTERS
 
     public int getId() {
         return id;
@@ -63,5 +60,10 @@ public class PatternSkill extends ObjectToString {
         this.maxLevel = maxLevel;
     }
 
+    //==================================================================================================================
+    //FUNCTIONS
+    public Skill createEmptySkill() {
+        return new Skill(this, 0, 0);
+    }
 
 }

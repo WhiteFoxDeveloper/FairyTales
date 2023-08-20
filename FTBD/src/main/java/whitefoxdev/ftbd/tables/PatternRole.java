@@ -1,15 +1,19 @@
 package whitefoxdev.ftbd.tables;
 import whitefoxdev.ftbd.abstracts.ObjectToString;
+import whitefoxdev.ftbd.tables.Player.Quest;
+import whitefoxdev.ftbd.tables.Player.Role;
+import whitefoxdev.ftbd.tables.Player.Task;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "patternRoles")
 public class PatternRole extends ObjectToString {
-    /**
-     * =================================================================================================================
-     * FIELDS
-     */
+    //==================================================================================================================
+    //FIELDS
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,10 +23,8 @@ public class PatternRole extends ObjectToString {
 
     private String rights;
 
-    /**
-     * =================================================================================================================
-     * CONSTRUCTORS
-     */
+    //==================================================================================================================
+    //CONSTRUCTORS
     private PatternRole(){}
 
     public PatternRole(String name, String rights) {
@@ -31,10 +33,8 @@ public class PatternRole extends ObjectToString {
         this.rights = rights;
     }
 
-    /**
-     * =================================================================================================================
-     * GETTERS_AND_SETTERS
-     */
+    //==================================================================================================================
+    //GETTERS_AND_SETTERS
 
     public int getId() {
         return id;
@@ -58,6 +58,13 @@ public class PatternRole extends ObjectToString {
 
     public void setRights(String rights) {
         this.rights = rights;
+    }
+
+
+    //==================================================================================================================
+    //FUNCTIONS
+    public Role createEmptyRole() {
+        return new Role(this, new Date(), null);
     }
 
 }

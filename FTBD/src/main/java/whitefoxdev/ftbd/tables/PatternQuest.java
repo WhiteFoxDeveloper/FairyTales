@@ -15,10 +15,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "patternQuests")
 public class PatternQuest extends ObjectToString {
-    /**
-     * =================================================================================================================
-     * FIELDS
-     */
+    //==================================================================================================================
+    //FIELDS
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -36,15 +34,15 @@ public class PatternQuest extends ObjectToString {
     @Fetch(FetchMode.SUBSELECT)
     private List<PatternTask> patternTasks = new ArrayList<>();
 
+    //возможно потребуется LAZY во избежание от дубликации объектов в ОЗУ
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     private List<PatternQuest> nextPatternQuests = new ArrayList<>();
 
-    /**
-     * =================================================================================================================
-     * CONSTRUCTORS
-     */
-    private PatternQuest() {}
+    //==================================================================================================================
+    //CONSTRUCTORS
+    private PatternQuest() {
+    }
 
     public PatternQuest(String title, String subtitle, String description, String taskMap, List<PatternTask> patternTasks, List<PatternQuest> nextPatternQuests) {
         this();
@@ -56,10 +54,9 @@ public class PatternQuest extends ObjectToString {
         this.nextPatternQuests = nextPatternQuests == null ? this.nextPatternQuests : nextPatternQuests;
     }
 
-    /**
-     * =================================================================================================================
-     * GETTERS_AND_SETTERS
-     */
+    //==================================================================================================================
+    //GETTERS_AND_SETTERS
+
     public int getId() {
         return id;
     }
@@ -100,29 +97,27 @@ public class PatternQuest extends ObjectToString {
         this.taskMap = taskMap;
     }
 
-    public List<PatternQuest> getNextPatternQuests(){
+    public List<PatternQuest> getNextPatternQuests() {
         return nextPatternQuests;
     }
 
-    public void setNextPatternQuests(List<PatternQuest> list){
+    public void setNextPatternQuests(List<PatternQuest> list) {
         this.nextPatternQuests = list;
     }
 
-    public List<PatternTask> getPatternTasks(){
+    public List<PatternTask> getPatternTasks() {
         return patternTasks;
     }
 
-    public void setPatternTasks(List<PatternTask> list){
+    public void setPatternTasks(List<PatternTask> list) {
         this.patternTasks = list;
     }
 
-    /**
-     * =================================================================================================================
-     * FUNCTIONS
-     */
-    public Quest createEmptyQuest(){
+    //==================================================================================================================
+    //FUNCTIONS
+    public Quest createEmptyQuest() {
         List<Task> tasks = new ArrayList<>();
-        for(PatternTask patternTask : this.patternTasks){
+        for (PatternTask patternTask : this.patternTasks) {
             tasks.add(patternTask.createEmptyTask());
         }
         return new Quest(this, Quest.Status.UNCOMPLETED, tasks);

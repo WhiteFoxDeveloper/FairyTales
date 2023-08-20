@@ -19,9 +19,11 @@ repositories {
 
 dependencies {
     testImplementation 'junit:junit:4.13.2'
-    compileOnly "org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT"
-    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.32.Final'
-    implementation group: 'org.hibernate', name: 'hibernate-tools', version: '5.4.32.Final'
+    compileOnly group: 'org.spigotmc', name: 'spigot-api', version: '1.16.5-R0.1-SNAPSHOT'
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.15.Final'
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+//    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.3.Final'
+//    implementation group: 'org.hibernate', name: 'hibernate-tools', version: '5.6.15.Final'
     implementation 'mysql:mysql-connector-java:8.0.33'
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'

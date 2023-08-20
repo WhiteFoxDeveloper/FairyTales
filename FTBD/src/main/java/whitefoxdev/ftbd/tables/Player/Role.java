@@ -11,10 +11,8 @@ import java.util.Date;
 @Entity
 @Table(name = "Roles")
 public class Role extends ObjectToString {
-    /**
-     * =================================================================================================================
-     * FIELDS
-     */
+    //==================================================================================================================
+    //FIELDS
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -29,10 +27,8 @@ public class Role extends ObjectToString {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateWithdraw;
 
-    /**
-     * =================================================================================================================
-     * CONSTRUCTORS
-     */
+    //==================================================================================================================
+    //CONSTRUCTORS
 
     private Role() {
     }
@@ -44,10 +40,8 @@ public class Role extends ObjectToString {
         this.dateWithdraw = dateWithdraw;
     }
 
-    /**
-     * =================================================================================================================
-     * GETTERS_AND_SETTERS
-     */
+    //==================================================================================================================
+    //GETTERS_AND_SETTERS
 
     public PatternRole getPatternRole() {
         return patternRole;

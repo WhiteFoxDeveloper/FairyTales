@@ -4,10 +4,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import whitefoxdev.ftbd.managers.PatternQuests;
 import whitefoxdev.ftbd.managers.PatternRoles;
 import whitefoxdev.ftbd.managers.PatternSkills;
+import whitefoxdev.ftbd.managers.Players;
 
 import java.io.File;
 
-public final class FTBD extends JavaPlugin {
+public final class Loader extends JavaPlugin {
 
     @Override
     public void onEnable() {
@@ -17,13 +18,21 @@ public final class FTBD extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        close();
     }
 
     public static void init(){
         HibernateManager.init();
         loadAllPatterns();
         loadJsonPatterns("src/main/resources/jsonTables/");
+    }
+
+    public static void close(){
+        PatternQuests.clear();
+        PatternRoles.clear();
+        PatternSkills.clear();
+        Players.clear();
+        HibernateManager.close();
     }
 
     public static void loadJsonPatterns(String path) {

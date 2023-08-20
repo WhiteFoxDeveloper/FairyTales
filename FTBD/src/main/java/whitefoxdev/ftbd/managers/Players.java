@@ -21,7 +21,11 @@ import java.util.List;
 public class Players {
     private static HashMap<String, Player> playerList = new HashMap<>();
 
-    public static boolean add(Player player){
+    /**
+     * Добавляет или обновляет данные игрока в базе данных.
+     */
+    public static boolean add(Player player) {
+        //В целях безопасности данных игроков функция замены данных по уникальному полю uuid не добавлена
         if (!HibernateManager.addObject(player)) {
             return false;
         }
@@ -29,59 +33,84 @@ public class Players {
         return true;
     }
 
+    /**
+     * Возвращает данные игрока из базы данных. Создает, если данных игрока не существовало.
+     */
     public static Player get(String uuid) {
         Player player = playerList.get(uuid);
-        if(player != null){
+        if (player != null) {
             return player;
         }
-        player = (Player) HibernateManager.getObject("Player", "uuid", uuid);
+        player = (Player) HibernateManager.getObject(Player.class, "uuid", uuid);
         if (player == null) {
-            player = getPatternPlayerWithJson(new File("src/main/resources/jsonTables/PatternPlayer.json"), uuid);
-            if(!add(player)){
+            player = getPatternPlayerFromJson(new File("src/main/resources/jsonTables/PatternPlayer.json"), uuid);
+            if (!add(player)) {
                 return null;
             }
         }
         return player;
     }
 
-    public static boolean remove(String uuid){
+    /**
+     * Обновляет данные игрока в базе данных и удаляет эти данные из листа и сессии Hibernate.
+     */
+    public static boolean remove(String uuid) {
         Player player = playerList.get(uuid);
-        if(player == null){
+        if (player == null) {
             return false;
         }
-        HibernateManager.addObject(player);
+        if (!HibernateManager.addObject(player)) {
+            return false;
+        }
+        HibernateManager.evict(player);
         playerList.remove(uuid);
         return true;
     }
 
-    public static int getCount(){
+    /**
+     * Удаляет все данные из листа и сессии Hibernate.
+     */
+    public static void clear() {
+        for (Player player : playerList.values()) {
+            HibernateManager.evict(player);
+        }
+        playerList.clear();
+    }
+
+    /**
+     * Возвращает количество объектов выгруженных с базы данных в лист.
+     */
+    public static int getCount() {
         return playerList.size();
     }
 
-    public static Player getPatternPlayerWithJson(File file, String uuid){
-        try(FileReader fileReader = new FileReader(file)) {
+    /**
+     * Создает объект Player из json файла.
+     */
+    public static Player getPatternPlayerFromJson(File file, String uuid) {
+        try (FileReader fileReader = new FileReader(file)) {
             Gson gson = new Gson();
             JsonLoader jsonLoader = gson.fromJson(fileReader, JsonLoader.class);
             List<Skill> skills = new ArrayList<>();
             List<Quest> quests = new ArrayList<>();
             List<Role> roles = new ArrayList<>();
-            for(int id : jsonLoader.patternSkillsId){
-                skills.add(new Skill(PatternSkills.get(id), 0, 0));
+            for (int id : jsonLoader.patternSkillsId) {
+                skills.add(PatternSkills.get(id).createEmptySkill());
             }
-            for(int id : jsonLoader.patternQuestsId){
+            for (int id : jsonLoader.patternQuestsId) {
                 quests.add(PatternQuests.get(id).createEmptyQuest());
             }
-            for(int id : jsonLoader.patternRolesId){
-                roles.add(new Role(PatternRoles.get(id), new Date(), null));
+            for (int id : jsonLoader.patternRolesId) {
+                roles.add(PatternRoles.get(id).createEmptyRole());
             }
             return new Player(uuid, jsonLoader.level, jsonLoader.experience, skills, quests, roles);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private class JsonLoader{
+    private class JsonLoader {
         public int level;
         public int experience;
         public List<Integer> patternSkillsId;

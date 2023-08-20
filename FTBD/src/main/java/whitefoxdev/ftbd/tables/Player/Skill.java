@@ -10,10 +10,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Skills")
 public class Skill extends ObjectToString {
-    /**
-     * =================================================================================================================
-     * FIELDS
-     */
+    //==================================================================================================================
+    //FIELDS
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,10 +24,8 @@ public class Skill extends ObjectToString {
 
     private int experience;
 
-    /**
-     * =================================================================================================================
-     * CONSTRUCTORS
-     */
+    //==================================================================================================================
+    //CONSTRUCTORS
 
     private Skill(){}
 
@@ -40,10 +36,8 @@ public class Skill extends ObjectToString {
         this.experience = experience;
     }
 
-    /**
-     * =================================================================================================================
-     * GETTERS_AND_SETTERS
-     */
+    //==================================================================================================================
+    //GETTERS_AND_SETTERS
 
     public PatternSkill getPatternSkill() {
         return patternSkill;

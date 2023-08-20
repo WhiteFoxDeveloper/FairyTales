@@ -6,19 +6,19 @@ public abstract class ObjectToString {
 
     public String toString() {
         StringBuilder builder = new StringBuilder(); //"\n" + getClass().getSimpleName() + ":"
-        try{
+        try {
             Field[] fields = getClass().getDeclaredFields();
             for (Field field : fields) {
                 field.setAccessible(true);
                 String name = field.getName();
                 String text = field.get(this).toString();
-                if (text.charAt(0) == '['){
-                    text = text.substring(1,text.length()-1).replaceAll(",", "\n________");
+                if (text.charAt(0) == '[') {
+                    text = text.substring(1, text.length() - 1).replaceAll(",", "\n________");
                 }
                 text = text.replaceAll("\n", "\n\t");
                 builder.append("\n" + name + ": " + text);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

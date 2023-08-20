@@ -11,10 +11,8 @@ import java.util.List;
 @Entity
 @Table(name = "Players")
 public class Player extends ObjectToString {
-    /**
-     * =================================================================================================================
-     * FIELDS
-     */
+    //==================================================================================================================
+    //FIELDS
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,7 +24,7 @@ public class Player extends ObjectToString {
 
     private int experience;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //cascade = CascadeType.ALL
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     private List<Skill> skills = new ArrayList<>();
 
@@ -38,10 +36,8 @@ public class Player extends ObjectToString {
     @Fetch(FetchMode.SUBSELECT)
     private List<Role> roles = new ArrayList<>();
 
-    /**
-     * =================================================================================================================
-     * CONSTRUCTORS
-     */
+    //==================================================================================================================
+    //CONSTRUCTORS
 
     private Player() {}
 
@@ -55,10 +51,8 @@ public class Player extends ObjectToString {
         this.roles = roles;
     }
 
-    /**
-     * =================================================================================================================
-     * GETTERS_AND_SETTERS
-     */
+    //==================================================================================================================
+    //GETTERS_AND_SETTERS
 
     public int getId() {
         return id;
