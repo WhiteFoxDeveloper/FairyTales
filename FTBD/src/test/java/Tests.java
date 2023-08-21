@@ -1,103 +1,67 @@
-
 import org.junit.Before;
 import org.junit.Test;
-import whitefoxdev.ftbd.HibernateManager;
-import whitefoxdev.ftbd.Loader;
-import whitefoxdev.ftbd.managers.PatternQuests;
-import whitefoxdev.ftbd.managers.PatternRoles;
-import whitefoxdev.ftbd.managers.PatternSkills;
-import whitefoxdev.ftbd.managers.Players;
+import whitefoxdev.ftbd.managers.Manager;
 import whitefoxdev.ftbd.tables.PatternQuest;
 import whitefoxdev.ftbd.tables.Player.Player;
-import whitefoxdev.ftbd.tables.Player.Quest;
 
 import java.io.File;
-import java.util.ArrayList;
 
-public class Tests{
 
-    final String UUID = "5f59c63a-f9a8-4d2c-b5b7-6e884353test";
+public class Tests {
+    private final String UUID = "5f59c63a-f9a8-4d2c-b5b7-6e884353test";
+    private Manager manager;
 
     @Before
     public void setUp() {
-        Tools.init();
+        manager = new Manager("hibernate.cfg.xml");
+        manager.init();
+        manager.getHibernateManager().removeAllObjectsFromTable(Player.class);
+        manager.addPatternQuestsFromJson(new File("src/main/resources/jsonTables/PatternQuests.json"));
+        manager.addPatternSkillFromJson(new File("src/main/resources/jsonTables/PatternSkills.json"));
+        manager.addPatternRoleFromJson(new File("src/main/resources/jsonTables/PatternRoles.json"));
     }
 
     @Test
-    public void testPlayerGet() {
-        Player player1, player2;
-        HibernateManager.init();
-
-        player1 = Players.get(UUID);
-        Players.remove(player1.getUuid());
-        player2 = Players.get(player1.getUuid());
-        assert player1.toString().equals(player2.toString());
-
-        Players.remove(player2.getUuid());
-        HibernateManager.removeObject(player2);
+    public void testAddPatternsFromJson() {
+        manager.addPatternQuestsFromJson(new File("src/main/resources/jsonTables/PatternQuests.json"));
+        manager.addPatternSkillFromJson(new File("src/main/resources/jsonTables/PatternSkills.json"));
+        manager.addPatternRoleFromJson(new File("src/main/resources/jsonTables/PatternRoles.json"));
     }
 
     @Test
-    public void testPlayerGetWithReloadHibernate() {
-        Player player1, player2;
-        HibernateManager.init();
+    public void testDuplicateObject(){
+        PatternQuest patternQuest1 = manager.getPatternQuestManager().getAll().get(0);
+        PatternQuest patternQuest2 = manager.getPatternQuestManager().get(patternQuest1.getId());
+        assert patternQuest1 == patternQuest2;
 
-        player1 = Players.get(UUID);
-        HibernateManager.close();
-        HibernateManager.init();
-        player2 = Players.get(UUID);
-        assert player1.toString().equals(player2.toString());
-
-        Players.remove(player2.getUuid());
-        HibernateManager.removeObject(player2);
-    }
-
-
-    @Test
-    public void testPlayerEditPropertiesWithoutDeletePatterns() {
-        Player player;
-        PatternQuest patternQuest1, patternQuest2;
-        HibernateManager.init();
-
-        player = Players.get(UUID);
-        patternQuest1 = player.getQuests().get(0).getPatternQuest();
-        player.setQuests(new ArrayList<>());
-        Players.add(player);
-        HibernateManager.close();
-        HibernateManager.init();
-        patternQuest2 = (PatternQuest) HibernateManager.getObject(PatternQuest.class, "id", patternQuest1.getId());
-        assert patternQuest1.toString().equals(patternQuest2.toString());
-
-        Players.remove(player.getUuid());
-        HibernateManager.removeObject(player);
-    }
-
-    @Test
-    public void testPlayerDeleteWithoutDeletePatterns() {
-        Player player;
-        PatternQuest patternQuest1, patternQuest2;
-        HibernateManager.init();
-
-        player = Players.get(UUID);
-        patternQuest1 = player.getQuests().get(0).getPatternQuest();
-        Players.remove(player.getUuid());
-        HibernateManager.removeObject(player);
-        patternQuest2 = (PatternQuest) HibernateManager.getObject(PatternQuest.class, "id", patternQuest1.getId());
-        assert patternQuest1.toString().equals(patternQuest2.toString());
-
-        Players.remove(player.getUuid());
-        HibernateManager.removeObject(player);
-    }
-
-    @Test
-    public void testDublicatePatterns(){
-        PatternQuest patternQuest1, patternQuest2;
-        HibernateManager.init();
-        PatternQuests.loadAll();
-
-        patternQuest1 = PatternQuests.get(1);
-        patternQuest1 = patternQuest1.getNextPatternQuests().get(0);
-        patternQuest2 = PatternQuests.get(patternQuest1.getId());
+        patternQuest1.setSubtitle("test");
+        manager.getPatternQuestManager().add(patternQuest1);
+        patternQuest2 = manager.getPatternQuestManager().get(patternQuest1.getId());
         assert patternQuest1 == patternQuest2;
     }
+
+    @Test
+    public void testAddViolatingUniquePattern() {
+        PatternQuest patternQuest1 = manager.getPatternQuestManager().getAll().get(0);
+        PatternQuest patternQuest2 = new PatternQuest(
+                patternQuest1.getTitle(),
+                patternQuest1.getSubtitle(),
+                patternQuest1.getDescription(),
+                patternQuest1.getTaskMap(),
+                patternQuest1.getPatternTasks(),
+                patternQuest1.getNextPatternQuests());
+        manager.getPatternQuestManager().add(patternQuest2);
+        patternQuest1 = manager.getPatternQuestManager().get(patternQuest2.getId());
+        assert patternQuest1 == patternQuest2;
+    }
+
+    @Test
+    public void addAndGetPlayer() {
+        Player player1 = manager.getPlayerFromJson(new File("src/main/resources/jsonTables/PatternPlayer.json"), UUID);
+        assert manager.getPlayerManager().add(player1);
+
+        Player player2 = manager.getPlayerManager().get(player1.getUuid());
+        assert player1 == player2;
+    }
+
 }

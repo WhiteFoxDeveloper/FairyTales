@@ -7,10 +7,9 @@ import whitefoxdev.ftbd.abstracts.ObjectToString;
 import whitefoxdev.ftbd.tables.Player.Quest;
 import whitefoxdev.ftbd.tables.Player.Task;
 
-import java.lang.reflect.Field;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "patternQuests")
