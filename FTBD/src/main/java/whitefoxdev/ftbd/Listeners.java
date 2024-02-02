@@ -7,7 +7,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import whitefoxdev.ftbd.managers.Players;
+import whitefoxdev.ftbd.managers.PlayerManager;
+
+import java.io.File;
 
 public class Listeners implements Listener {
 
@@ -15,13 +17,19 @@ public class Listeners implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        //Load playerData from database, if playerData is not exist, then create new playerData
         Player player = event.getPlayer();
         String uuid = player.getUniqueId().toString();
         String name = player.getDisplayName();
+        PlayerManager playerManager = FTBD.getManager().getPlayerManager();
 
         logger.info("Player \"" + name + "\" join");
-        if(Players.get(uuid) == null){
+        whitefoxdev.ftbd.tables.Player.Player playerData = playerManager.get(uuid);
+        if(playerData != null){
+            return;
+        }
+        logger.info("Player \"" + name + "\" has no data in the database");
+        playerData = FTBD.getManager().getPlayerFromJson(new File("src/main/resources/jsonTables/PatternPlayer.json"), uuid);
+        if(!playerManager.add(playerData)) {
             player.kickPlayer("The database cannot create your entity");
             logger.error("The database does not create a \"Player\" object");
         }
@@ -29,14 +37,16 @@ public class Listeners implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        //Unload playerData in databaseA
         Player player = event.getPlayer();
         String uuid = player.getUniqueId().toString();
         String name = player.getDisplayName();
+        PlayerManager playerManager = FTBD.getManager().getPlayerManager();
 
         logger.info("Player \"" + name + "\" quit");
-        Players.remove(uuid);
+        whitefoxdev.ftbd.tables.Player.Player playerData = playerManager.get(uuid);
+        if (playerData != null) {
+            playerManager.add(playerData);
+            playerManager.evict(playerData);
+        }
     }
-
-
 }

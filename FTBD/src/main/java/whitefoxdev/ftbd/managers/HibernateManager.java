@@ -1,4 +1,4 @@
-package whitefoxdev.ftbd;
+package whitefoxdev.ftbd.managers;
 
 
 import org.hibernate.Session;
@@ -17,31 +17,41 @@ import java.util.List;
 
 public class HibernateManager {
 
-    private static SessionFactory sessionFactory;
-    private static Session session;
+    private SessionFactory sessionFactory;
+    private Session session;
+    private String hibernateCfgXmlPath;
+
+    public HibernateManager(String hibernateCfgXmlPath){
+        this.hibernateCfgXmlPath = hibernateCfgXmlPath;
+    }
 
     /**
      * Соединяет базу данных с приложением, если до этого соединение уже было установлено, то функция не выполняется.
      */
-    public static void init() {
-        if (sessionFactory != null) {
-            if (!sessionFactory.isClosed()) {
+    public void init() {
+        if(sessionFactory != null) {
+            if (sessionFactory.isOpen()) {
                 return;
             }
         }
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure("hibernate.cfg.xml").build();
-        Metadata metadata = new MetadataSources(registry).getMetadataBuilder().build();
-        sessionFactory = metadata.getSessionFactoryBuilder().build();
-        session = sessionFactory.openSession();
+        try {
+            StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+                    .configure(hibernateCfgXmlPath).build();
+            Metadata metadata = new MetadataSources(registry).getMetadataBuilder().build();
+            sessionFactory = metadata.getSessionFactoryBuilder().build();
+            session = sessionFactory.openSession();
+        }catch (Exception e){
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     /**
      * Добавляет или обновляет объект в базе данных.
      */
-    public static boolean addObject(Object object) {
+    public void addObject(Object object) {
         if (object == null) {
-            return false;
+            return;
         }
         Transaction transaction = null;
         try {
@@ -52,60 +62,58 @@ public class HibernateManager {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
-            return false;
+            //e.printStackTrace();
+            throw e;
         }
-        return true;
     }
 
     /**
      * Возвращает объект определенного типа(clazz) из базы данных по значению поля(value) в столбце(fieldName).
      */
-    public static Object getObject(Class clazz, String fieldName, Object value) {
+    public <T> T getObject(Class<T> clazz, String fieldName, Object value) {
         try {
             String hql = "FROM " + clazz.getName() + " WHERE " + fieldName + " = :value";
             Query query = session.createQuery(hql);
             query.setParameter("value", value);
-            return query.uniqueResult();
+            return (T) query.uniqueResult();
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 
     /**
      * Возвращает все объекты по определенному типу(clazz).
      */
-    public static List<Object> getAllObjects(Class clazz) {
+    public <T> List<T> getAllObjects(Class<T> clazz) {
         try {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery(clazz);
-            Root<Object> root = criteriaQuery.from(clazz);
+            CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(clazz);
+            Root<T> root = criteriaQuery.from(clazz);
             criteriaQuery.select(root);
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 
     /**
      * Удаляет объект из базы данных.
      */
-    public static boolean removeObject(Object object) {
+    public void removeObject(Object object) {
         try {
             session.remove(object);
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            //e.printStackTrace();
+            throw e;
         }
-        return true;
     }
 
     /**
      * Удаляет все объекты определенного типа(clazz).
      */
-    public static void removeAllObjectsFromTable(Class clazz) {
+    public void removeAllObjectsFromTable(Class clazz) {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
@@ -116,28 +124,38 @@ public class HibernateManager {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            //e.printStackTrace();
+            throw e;
         }
     }
 
     /**
      * Удаляет объект из сессии Hibernate.
      */
-    public static void evict(Object object) {
-        session.evict(object);
+    public void evict(Object object) {
+        try {
+            session.evict(object);
+        }catch (Exception e){
+            //e.printStackTrace();
+            throw e;
+        }
     }
 
     /**
      * Закрывает соединение базы данных с приложением, если до этого соединения отсутствовало, то функция не выполняется.
      */
-    public static void close() {
+    public void close() {
         if (sessionFactory == null) {
             return;
         }
         if (sessionFactory.isClosed()) {
             return;
         }
-        session.close();
-        sessionFactory.close();
+        try{
+            sessionFactory.close();
+        }catch (Exception e){
+            //e.printStackTrace();
+            throw e;
+        }
     }
 }
