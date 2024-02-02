@@ -1,0 +1,43 @@
+Manifest-Version: 1.0
+Implementation-Title: JavaCV
+Implementation-Version: 1.4.4
+Built-By: saudet
+Specification-Vendor: Bytedeco
+Specification-Title: JavaCV
+Class-Path: javacpp-1.4.4.jar opencv-4.0.1-1.4.4.jar ffmpeg-4.1-1.4.4.
+ jar flycapture-2.13.3.31-1.4.4.jar libdc1394-2.2.5-1.4.4.jar libfreen
+ ect-0.5.3-1.4.4.jar libfreenect2-0.2.0-1.4.4.jar librealsense-1.12.1-
+ 1.4.4.jar videoinput-0.200-1.4.4.jar artoolkitplus-2.3.1-1.4.4.jar fl
+ andmark-1.07-1.4.4.jar leptonica-1.77.0-1.4.4.jar tesseract-4.0.0-1.4
+ .4.jar android-4.1.1.4.jar gluegen-rt-main-2.3.2.jar gluegen-rt-2.3.2
+ .jar gluegen-rt-2.3.2-natives-android-aarch64.jar gluegen-rt-2.3.2-na
+ tives-android-armv6.jar gluegen-rt-2.3.2-natives-linux-amd64.jar glue
+ gen-rt-2.3.2-natives-linux-armv6.jar gluegen-rt-2.3.2-natives-linux-a
+ rmv6hf.jar gluegen-rt-2.3.2-natives-linux-i586.jar gluegen-rt-2.3.2-n
+ atives-macosx-universal.jar gluegen-rt-2.3.2-natives-solaris-amd64.ja
+ r gluegen-rt-2.3.2-natives-solaris-i586.jar gluegen-rt-2.3.2-natives-
+ windows-amd64.jar gluegen-rt-2.3.2-natives-windows-i586.jar jogl-all-
+ main-2.3.2.jar jogl-all-2.3.2.jar jogl-all-2.3.2-natives-android-aarc
+ h64.jar jogl-all-2.3.2-natives-android-armv6.jar jogl-all-2.3.2-nativ
+ es-linux-amd64.jar jogl-all-2.3.2-natives-linux-armv6.jar jogl-all-2.
+ 3.2-natives-linux-armv6hf.jar jogl-all-2.3.2-natives-linux-i586.jar j
+ ogl-all-2.3.2-natives-macosx-universal.jar jogl-all-2.3.2-natives-sol
+ aris-amd64.jar jogl-all-2.3.2-natives-solaris-i586.jar jogl-all-2.3.2
+ -natives-windows-amd64.jar jogl-all-2.3.2-natives-windows-i586.jar jo
+ cl-main-2.3.2.jar jocl-2.3.2.jar jocl-2.3.2-natives-android-aarch64.j
+ ar jocl-2.3.2-natives-android-armv6.jar jocl-2.3.2-natives-linux-amd6
+ 4.jar jocl-2.3.2-natives-linux-armv6.jar jocl-2.3.2-natives-linux-arm
+ v6hf.jar jocl-2.3.2-natives-linux-i586.jar jocl-2.3.2-natives-macosx-
+ universal.jar jocl-2.3.2-natives-solaris-amd64.jar jocl-2.3.2-natives
+ -solaris-i586.jar jocl-2.3.2-natives-windows-amd64.jar jocl-2.3.2-nat
+ ives-windows-i586.jar javacpp.jar opencv.jar ffmpeg.jar flycapture.ja
+ r libdc1394.jar libfreenect.jar libfreenect2.jar librealsense.jar vid
+ eoinput.jar artoolkitplus.jar flandmark.jar leptonica.jar tesseract.j
+ ar
+Main-Class: org.bytedeco.javacv.JavaCV
+Implementation-Vendor: Bytedeco
+Name: org/bytedeco/javacv/
+Created-By: Apache Maven 3.5.0
+Build-Jdk: 1.8.0_191
+Specification-Version: 1.4.4
+

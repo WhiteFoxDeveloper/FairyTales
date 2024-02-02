@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Implementation-Title: JavaCPP
+Implementation-Version: 1.4.4
+Built-By: saudet
+Specification-Vendor: Bytedeco
+Name: org/bytedeco/javacpp/
+Specification-Title: JavaCPP
+Created-By: Apache Maven 3.5.0
+Build-Jdk: 1.8.0_191
+Specification-Version: 1.4.4
+Main-Class: org.bytedeco.javacpp.tools.Builder
+Implementation-Vendor: Bytedeco
+

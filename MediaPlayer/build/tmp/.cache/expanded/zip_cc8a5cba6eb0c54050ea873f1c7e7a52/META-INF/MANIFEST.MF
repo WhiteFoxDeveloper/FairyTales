@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Implementation-Title: JavaCPP Presets for FFmpeg
+Implementation-Version: 4.1-1.4.4
+Built-By: travis
+Specification-Vendor: Bytedeco
+Name: org/bytedeco/javacpp/presets/
+Specification-Title: JavaCPP Presets for FFmpeg
+Class-Path: javacpp.jar
+Created-By: Apache Maven 3.6.0
+Build-Jdk: 1.8.0_92
+Specification-Version: 4.1-1.4.4
+Implementation-Vendor: Bytedeco
+

@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Implementation-Title: JavaCPP Presets Platform for FFmpeg
+Implementation-Version: 4.1-1.4.4
+Built-By: saudet
+Specification-Vendor: Bytedeco
+Name: org/bytedeco/javacpp/presets/
+Specification-Title: JavaCPP Presets Platform for FFmpeg
+Class-Path: ffmpeg.jar ffmpeg-linux-x86.jar ffmpeg-linux-x86_64.jar ff
+ mpeg-linux-armhf.jar ffmpeg-linux-ppc64le.jar ffmpeg-macosx-x86_64.ja
+ r ffmpeg-windows-x86.jar ffmpeg-windows-x86_64.jar
+Created-By: Apache Maven 3.5.0
+Build-Jdk: 1.8.0_191
+Specification-Version: 4.1-1.4.4
+Implementation-Vendor: Bytedeco
+
