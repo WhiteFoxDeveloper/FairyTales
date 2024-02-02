@@ -1,0 +1,52 @@
+{
+  "elements": [
+    {
+      "name": "Гильдмастер",
+      "rights": "rights"
+    },
+    {
+      "name": "Мастер",
+      "rights": "rights"
+    },
+    {
+      "name": "Рейдлидер",
+      "rights": "rights"
+    },
+    {
+      "name": "Офицер",
+      "rights": "rights"
+    },
+    {
+      "name": "Рекрутер",
+      "rights": "rights"
+    },
+    {
+      "name": "Воин",
+      "rights": "rights"
+    },
+    {
+      "name": "Маг",
+      "rights": "rights"
+    },
+    {
+      "name": "Лучник",
+      "rights": "rights"
+    },
+    {
+      "name": "Жрец",
+      "rights": "rights"
+    },
+    {
+      "name": "Вор",
+      "rights": "rights"
+    },
+    {
+      "name": "Танк",
+      "rights": "rights"
+    },
+    {
+      "name": "Хилер",
+      "rights": "rights"
+    }
+  ]
+}

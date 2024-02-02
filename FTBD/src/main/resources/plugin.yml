@@ -1,0 +1,4 @@
+name: FTBD
+version: '${version}'
+main: whitefoxdev.ftbd.FTBD
+api-version: '1.16'
